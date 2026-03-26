@@ -91,6 +91,6 @@ window.alternarStatusNaTela = function(id) {
     gerenciador.alternarStatus(id);
     salvarDados();
     atualizarTela();
-}
+};
 
 carregarDados();
