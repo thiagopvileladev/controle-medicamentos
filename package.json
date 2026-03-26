@@ -1,0 +1,21 @@
+{
+  "name": "controle-medicamentos",
+  "version": "1.0.0",
+  "description": "Sistema de controle de horários e medicamentos para idosos e cuidadores.",
+  "main": "src/js/gerenciador.js",
+  "scripts": {
+    "test": "jest",
+    "lint": "eslint src/**"
+  },
+  "keywords": [
+    "saude",
+    "idosos",
+    "medicamentos"
+  ],
+  "author": "Thiago P. Vilela",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0"
+  }
+}

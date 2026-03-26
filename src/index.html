@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediCare - Controle de Medicamentos</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MediCare</h1>
+            <p>Controle fácil de horários para seus medicamentos</p>
+        </header>
+
+        <main>
+            <section class="form-section">
+                <form id="form-remedio">
+                    <label for="nome">Nome do Remédio:</label>
+                    <input type="text" id="nome" placeholder="Ex: Losartana" required>
+
+                    <label for="dosagem">Dosagem (opcional):</label>
+                    <input type="text" id="dosagem" placeholder="Ex: 50mg">
+
+                    <label for="horario">Horário:</label>
+                    <input type="time" id="horario" required>
+
+                    <button type="submit" class="btn-salvar">Salvar Remédio</button>
+                </form>
+            </section>
+
+            <section class="list-section">
+                <h2>Meus Remédios</h2>
+                
+                <div id="status-alerta" class="status-box"></div>
+
+                <ul id="lista-remedios">
+                    </ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/gerenciador.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
