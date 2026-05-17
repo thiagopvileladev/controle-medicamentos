@@ -25,6 +25,15 @@
                     <label for="horario">Horário:</label>
                     <input type="time" id="horario" required>
 
+                    <label for="cep">CEP da Farmácia (opcional):</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="cep" placeholder="Ex: 01001000" maxlength="8" style="flex: 1;">
+                        <button type="button" id="btn-buscar-cep" style="padding: 10px; cursor: pointer; background-color: #2c3e50; color: white; border: none; border-radius: 5px; font-weight: bold;">Buscar</button>
+                    </div>
+
+                    <label for="endereco">Endereço de Retirada:</label>
+                    <input type="text" id="endereco" placeholder="Preenchido automaticamente pelo CEP" readonly>
+
                     <button type="submit" class="btn-salvar">Salvar Remédio</button>
                 </form>
             </section>
@@ -35,7 +44,7 @@
                 <div id="status-alerta" class="status-box"></div>
 
                 <ul id="lista-remedios">
-                    </ul>
+                </ul>
             </section>
         </main>
     </div>

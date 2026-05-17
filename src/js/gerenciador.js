@@ -3,7 +3,7 @@ class GerenciadorMedicamentos {
         this.medicamentos = [];
     }
 
-    adicionar(nome, dosagem, horario) {
+    adicionar(nome, dosagem, horario, endereco) {
         if (!nome || !horario) {
             throw new Error("Erro: Nome e horário são obrigatórios!");
         }
@@ -13,6 +13,7 @@ class GerenciadorMedicamentos {
             nome: nome,
             dosagem: dosagem || "Não informada",
             horario: horario,
+            endereco: endereco || "Não informado",
             tomado: false
         };
 

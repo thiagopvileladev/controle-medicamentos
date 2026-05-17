@@ -2,7 +2,7 @@ const gerenciador = new GerenciadorMedicamentos();
 
 const form = document.getElementById('form-remedio');
 const listaUI = document.getElementById('lista-remedios');
-const statusUI = document.getElementById('status-alerta'); // Pega o alerta na tela
+const statusUI = document.getElementById('status-alerta');
 
 function carregarDados() {
     const dadosSalvos = JSON.parse(localStorage.getItem('medicamentos')) || [];
@@ -18,11 +18,10 @@ function atualizarTela() {
     listaUI.innerHTML = ''; 
     const remedios = gerenciador.listar();
 
-    // IDEIA 3: Lógica do Alerta de Status
     const total = remedios.length;
     const tomados = remedios.filter(m => m.tomado).length;
     
-    statusUI.style.display = "block"; // Mostra a caixa
+    statusUI.style.display = "block"; 
     if (total === 0) {
         statusUI.innerHTML = "Nenhum remédio programado. Tudo tranquilo!";
         statusUI.style.backgroundColor = "#ecf0f1";
@@ -40,11 +39,9 @@ function atualizarTela() {
         statusUI.style.borderColor = "#f1c40f";
     }
 
-    // Desenhando os remédios na tela
     remedios.forEach(med => {
         const li = document.createElement('li');
         
-        // Se estiver tomado, aplica a classe do CSS e marca o checkbox
         const classeTomado = med.tomado ? 'tomado-texto' : '';
         const checked = med.tomado ? 'checked' : '';
 
@@ -53,7 +50,8 @@ function atualizarTela() {
                 <input type="checkbox" class="checkbox-tomado" onchange="alternarStatusNaTela(${med.id})" ${checked}>
                 <div>
                     <strong>${med.nome}</strong> (${med.dosagem}) <br>
-                    Horário: <strong>${med.horario}</strong>
+                    Horário: <strong>${med.horario}</strong> <br>
+                    <small style="color: #7f8c8d;">🏥 Retirada: ${med.endereco}</small>
                 </div>
             </div>
             <button class="btn-remover" onclick="removerNaTela(${med.id})">Remover</button>
@@ -62,15 +60,44 @@ function atualizarTela() {
     });
 }
 
+// INTEGRAÇÃO COM A API PÚBLICA (ViaCEP)
+document.getElementById('btn-buscar-cep').addEventListener('click', async function() {
+    const cep = document.getElementById('cep').value.replace(/\D/g, '');
+    const enderecoInput = document.getElementById('endereco');
+
+    if (cep.length !== 8) {
+        alert('Por favor, digite um CEP válido com 8 dígitos.');
+        return;
+    }
+
+    enderecoInput.value = "Buscando endereço...";
+
+    try {
+        const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+        const data = await response.json();
+
+        if (data.erro) {
+            alert('CEP não encontrado!');
+            enderecoInput.value = "";
+        } else {
+            enderecoInput.value = `${data.logradouro}, ${data.bairro} - ${data.localidade}/${data.uf}`;
+        }
+    } catch (error) {
+        alert('Erro ao buscar o CEP na rede.');
+        enderecoInput.value = "";
+    }
+});
+
 form.addEventListener('submit', function(evento) {
     evento.preventDefault(); 
 
     const nome = document.getElementById('nome').value;
     const dosagem = document.getElementById('dosagem').value;
     const horario = document.getElementById('horario').value;
+    const endereco = document.getElementById('endereco').value;
 
     try {
-        gerenciador.adicionar(nome, dosagem, horario);
+        gerenciador.adicionar(nome, dosagem, horario, endereco);
         salvarDados();
         atualizarTela();
         form.reset(); 
@@ -79,14 +106,12 @@ form.addEventListener('submit', function(evento) {
     }
 });
 
-// Evento: Clicar no botão "Remover"
 window.removerNaTela = function(id) {
     gerenciador.remover(id);
     salvarDados();
     atualizarTela();
 };
 
-// Evento: Clicar na caixinha de seleção (Checkbox)
 window.alternarStatusNaTela = function(id) {
     gerenciador.alternarStatus(id);
     salvarDados();
