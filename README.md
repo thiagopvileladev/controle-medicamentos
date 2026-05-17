@@ -23,3 +23,7 @@ Como o projeto utiliza tecnologias web nativas, a execução da interface não r
 1. Clone este repositório para a sua máquina:
    ```bash
    git clone [https://github.com/SEU-USUARIO/controle-medicamentos.git](https://github.com/SEU-USUARIO/controle-medicamentos.git)
+
+# MediCare - Controle de Medicamentos
+
+🚀 **Acesse a aplicação online:** https://thiagopvileladev.github.io/controle-medicamentos/
