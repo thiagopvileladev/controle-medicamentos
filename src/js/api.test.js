@@ -1,5 +1,3 @@
-/* global describe, it, expect */
-
 describe('Teste de Integração - API Pública ViaCEP', () => {
     it('Deve consultar a API externa e retornar os dados corretos de um CEP válido', async () => {
         const cepDeTeste = '01001000'; // CEP da Praça da Sé
